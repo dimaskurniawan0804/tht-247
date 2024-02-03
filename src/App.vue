@@ -237,7 +237,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 #main-wrapper {
-  background-image: url("https://www.researchsat.space/images/svr2.jpg");
+  background-image: url("https://starwalk.space/gallery/images/what-is-space/1920x1080.jpg");
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -324,7 +324,7 @@ export default defineComponent({
           border: 1px solid;
         }
         th {
-          width: 130px;
+          min-width: 123px;
           background-color: #0ea5e9;
         }
         td {
