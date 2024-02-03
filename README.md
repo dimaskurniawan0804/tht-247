@@ -1,18 +1,57 @@
-# Vue 3 + TypeScript + Vite
+# Realtime Dashboard
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Description
 
-## Recommended IDE Setup
+A Vue 3 project for displaying a real-time dashboard with various features including input generation, table visualization, and summary calculation.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Table of Contents
 
-## Type Support For `.vue` Imports in TS
+- [Project Overview](#project-overview)
+- [Project Structure](#project-structure)
+- [Project Setup](#project-setup)
+- [Technologies Used](#technologies-used)
+- [Author](#author)
+- [License](#license)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Project Overview
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+This project utilizes Vue 3 for building a dynamic and responsive dashboard interface. It includes the following key features:
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- **Input Generation**: Allows users to input a number and generate random numbers based on the input.
+- **Table Visualization**: Visualizes the generated random numbers in a tabular format.
+- **Summary Calculation**: Calculates the smallest number from the generated random numbers.
+- **Real-time Clock**: Displays the current time in a 24-hour format.
+- **Random Quote of the Day**: Fetches a random quote of the day from an external API and displays it on the dashboard.
+
+## Project Structure
+
+- **Components**: Contains Vue components such as `Menubar`, `Button`, `InputText`, and `Divider`.
+- **Views**: Contains the main dashboard view (`Dashboard.vue`) where all the components are integrated.
+- **Assets**: Contains background images used in the project.
+
+## Project Setup
+
+To run the project locally, follow these steps:
+
+1. Clone the repository:
+
+2. Install dependencies:
+
+3. Run the development server:
+
+4. Open your browser and navigate to `http://localhost:8080` to view the dashboard.
+
+## Technologies Used
+
+- Vue 3
+- TypeScript
+- SCSS
+- API (for fetching random quotes)
+
+## Author
+
+Dimas Kurniawan
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

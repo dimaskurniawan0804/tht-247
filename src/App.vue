@@ -77,7 +77,7 @@
 import { ref, watch, reactive, onMounted, defineComponent } from "vue";
 export default defineComponent({
   setup() {
-    const inputNumber = ref<number>(0);
+    const inputNumber = ref<string>("");
     const randomNumbers = ref<number[]>([]);
     const splitArrayData = ref<number[][]>([]);
     const summary = ref<number>(0);
@@ -102,8 +102,8 @@ export default defineComponent({
 
     watch(
       inputNumber,
-      (val = 0) => {
-        if (val > 0 && val < 10001) {
+      (val) => {
+        if (+val > 0 && +val < 10001) {
           isEnableGenerateButton.value = true;
         } else {
           isEnableGenerateButton.value = false;
@@ -115,7 +115,7 @@ export default defineComponent({
     watch(
       () => tab.input,
       () => {
-        if (inputNumber.value && inputNumber.value > 0 && inputNumber.value < 10001) {
+        if (inputNumber.value && +inputNumber.value > 0 && +inputNumber.value < 10001) {
           isEnableGenerateButton.value = true;
         } else {
           isEnableGenerateButton.value = false;
