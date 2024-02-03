@@ -6,7 +6,7 @@ describe("AppVue Component", () => {
   it("should update inputNumber and call generateRandomNumbers", async () => {
     const vm = wrapper.vm;
 
-    vm.inputNumber = 10;
+    vm.inputNumber = "10";
 
     await vm.generateRandomNumbers();
 
