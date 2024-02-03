@@ -1,30 +1,230 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="main-wrapper">
+    <Menubar :model="items" />
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="button-tab">
+          <Button label="Input" @click="tabHandler('input')" severity="secondary" :outlined="tab.input ? false : true" />
+          <Button label="Table" @click="tabHandler('table')" severity="secondary" :outlined="tab.table ? false : true" />
+          <Button label="Summary" @click="tabHandler('summary')" severity="secondary" :outlined="tab.summary ? false : true" />
+        </div>
+        <Divider />
+        <!--INPUT-->
+        <div class="content-input" v-if="tab.input">
+          <div class="user-input">
+            <label for="username">Generate Random Number</label>
+            <InputText type="number" id="username" v-model="inputNumber" style="width: 300px" />
+            <small id="username-help">Enter a number between 1 - 10000</small>
+          </div>
+          <div>
+            <Button label="Generate" @click="generateRandomNumbers" :disabled="!isEnableGenerateButton" />
+          </div>
+        </div>
+        <!--TABLE-->
+        <div class="content-table" v-if="tab.table">
+          <div v-if="randomNumbers.length < 1" class="empty-table">
+            <h1>PLEASE GENERATE NEW NUMBERS</h1>
+          </div>
+          <table v-for="(item, idx) of splitArrayData">
+            <thead>
+              <tr>
+                <th v-for="(_, index) in item" :key="index">{{ 10 * idx + (index + 1) }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td v-for="(data, index) in item" :key="index">{{ data }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--SUMARY-->
+        <div class="content-summary" v-if="tab.summary">
+          <div class="summary" style="display: flex; flex-direction: column; gap: 8px" v-if="!summary">
+            <h1 v-if="randomNumbers.length < 1">PLEASE GENERATE NEW NUMBERS</h1>
+            <Button label="Get Summary" :disabled="randomNumbers.length < 1" @click="findSmallestNumber" />
+          </div>
+          <div class="summary" v-if="summary">
+            <h1 style="color: white">{{ summary }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>03 Februari 2024</footer>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup lang="ts">
+import { ref, watch, reactive } from "vue";
+const inputNumber = ref<number>();
+const randomNumbers = ref<number[]>([]);
+const splitArrayData = ref<number[][]>([]);
+const summary = ref<number>(0);
+const isEnableGenerateButton = ref(false);
+const tab = reactive({
+  input: true,
+  table: false,
+  summary: false,
+});
+const items = ref([
+  {
+    label: "Dimas Kurniawan",
+    icon: "pi pi-home",
+  },
+]);
+
+watch(
+  inputNumber,
+  (val = 0) => {
+    if (val > 0 && val < 10001) {
+      isEnableGenerateButton.value = true;
+    } else {
+      isEnableGenerateButton.value = false;
+    }
+  },
+  { immediate: true }
+);
+
+watch(
+  () => tab.input,
+  () => {
+    if (inputNumber.value && inputNumber.value > 0 && inputNumber.value < 10001) {
+      isEnableGenerateButton.value = true;
+    } else {
+      isEnableGenerateButton.value = false;
+    }
+  }
+);
+
+function generateRandomNumbers() {
+  randomNumbers.value = [];
+  summary.value = 0;
+  // toast.add({ severity: "warn", summary: "Invalid Input", detail: "Enter a number between 1 - 10000", life: 3000 });
+  if (inputNumber.value !== undefined) {
+    for (let i = 0; i < inputNumber.value; i++) {
+      const randomNumber = Math.floor(Math.random() * (1000000 - -1000000 + 1)) + -1000000;
+      randomNumbers.value.push(randomNumber);
+    }
+    isEnableGenerateButton.value = false;
+    splitArray(randomNumbers.value, 10);
+  }
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+function splitArray(array: any, chunkSize: number) {
+  const chunks = [];
+
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+
+  splitArrayData.value = chunks;
+  tab.input = false;
+  tab.table = true;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+function findSmallestNumber() {
+  const sortArray = randomNumbers.value.sort((a, b) => a - b).filter((el) => el > 0);
+  summary.value = sortArray[0] - 1;
+}
+
+function tabHandler(activeTab: string) {
+  switch (activeTab) {
+    case "input":
+      tab.input = true;
+      tab.table = false;
+      tab.summary = false;
+      break;
+    case "table":
+      tab.input = false;
+      tab.table = true;
+      tab.summary = false;
+      break;
+    case "summary":
+      tab.input = false;
+      tab.table = false;
+      tab.summary = true;
+      break;
+    default:
+      break;
+  }
+}
+</script>
+
+<style scoped lang="scss">
+#main-wrapper {
+  background-image: url("../public/1329016.png");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 18px;
+
+  .content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .content {
+      padding: 16px;
+      width: 90vw;
+      height: 80vh;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      .button-tab {
+        display: flex;
+        gap: 8px;
+      }
+
+      .content-input {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        .user-input {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+      }
+
+      .empty-table,
+      .summary {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content-table,
+      .content-summary {
+        height: 85%;
+        overflow: scroll;
+        table,
+        th,
+        td {
+          border: 1px solid;
+        }
+        th {
+          width: 130px;
+          background-color: red;
+        }
+        td {
+          background-color: white;
+        }
+      }
+    }
+  }
+  footer {
+    flex-shrink: 0;
+    background-color: #f5f5f5;
+    padding: 14px;
+    text-align: center;
+    margin-top: auto;
+  }
 }
 </style>
