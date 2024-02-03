@@ -127,7 +127,7 @@ export default defineComponent({
       randomNumbers.value = [];
       summary.value = 0;
       if (inputNumber.value !== undefined) {
-        for (let i = 0; i < inputNumber.value; i++) {
+        for (let i = 0; i < +inputNumber.value; i++) {
           const randomNumber = Math.floor(Math.random() * (1000000 - -1000000 + 1)) + -1000000;
           randomNumbers.value.push(randomNumber);
         }
@@ -182,7 +182,7 @@ export default defineComponent({
         const res = await response.json();
         quote.value = res.content;
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 
