@@ -39,7 +39,7 @@
           <div v-if="randomNumbers.length < 1" class="empty-table">
             <h1 class="empty">PLEASE GENERATE NEW NUMBERS</h1>
           </div>
-          <h3 style="color: white; margin-bottom: 16px">You have generated {{ randomNumbers.length }}</h3>
+          <h3 style="color: white; margin-bottom: 16px">You have generated {{ randomNumbers.length }} numbers</h3>
           <table v-for="(item, idx) of splitArrayData">
             <thead>
               <tr>
