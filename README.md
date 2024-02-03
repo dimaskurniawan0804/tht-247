@@ -27,7 +27,6 @@ This project utilizes Vue 3 for building a dynamic and responsive dashboard inte
 
 - **Components**: Contains Vue components such as `Menubar`, `Button`, `InputText`, and `Divider`.
 - **Views**: Contains the main dashboard view (`Dashboard.vue`) where all the components are integrated.
-- **Assets**: Contains background images used in the project.
 
 ## Project Setup
 

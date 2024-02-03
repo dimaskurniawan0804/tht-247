@@ -237,7 +237,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 #main-wrapper {
-  background-image: url("/1329016.png");
+  background-image: url("https://www.researchsat.space/images/svr2.jpg");
   background-size: cover;
   display: flex;
   flex-direction: column;
